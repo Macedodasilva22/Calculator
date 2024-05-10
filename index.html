@@ -1,161 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-    <input id="result" />
-    <br />
-    <button onclick="displaynum(1)">1</button>
-    <button onclick="displaynum(2)">2</button>
-    <button onclick="displaynum(3)">3</button>
-    <button onclick="appendOperator('+')">+</button>
-    <br />
-    <button onclick="displaynum(4)">4</button>
-    <button onclick="displaynum(5)">5</button>
-    <button onclick="displaynum(6)">6</button>
-    <button onclick="appendOperator('-')">-</button>
-    <br />
-    <button onclick="displaynum(7)">7</button>
-    <button onclick="displaynum(8)">8</button>
-    <button onclick="displaynum(9)">9</button>
-    <button onclick="clearInput()">C</button>
-    <br />
-    <button onclick="displaynum(0)">0</button>
-    <button onclick="appendOperator('*')">*</button>
-    <button onclick="appendOperator('/')">/</button>
-    <button onclick="calculate()">=</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <input id="result" readonly>
+  <br>
+  <button onclick="addToExpression('1')">1</button>
+  <button onclick="addToExpression('2')">2</button>
+  <button onclick="addToExpression('3')">3</button>
+  <button onclick="addToExpression('+')">+</button>
+  <br>
+  <button onclick="addToExpression('4')">4</button>
+  <button onclick="addToExpression('5')">5</button>
+  <button onclick="addToExpression('6')">6</button>
+  <button onclick="addToExpression('-')">-</button>
+  <br>
+  <button onclick="addToExpression('7')">7</button>
+  <button onclick="addToExpression('8')">8</button>
+  <button onclick="addToExpression('9')">9</button>
+  <button onclick="clearInput()">C</button>
+  <br>
+  <button onclick="addToExpression('0')">0</button>
+  <button onclick="addToExpression('*')">*</button>
+  <button onclick="addToExpression('/')">/</button>
+  <button onclick="calculate()">=</button>
 
-    <script>
-      function displaynum(num) {
-        if (result.value !== "0") {
-          result.value += num;
-        } else {
-          result.value = num;
-        }
+  <script>
+    const result = document.getElementById('result');
+
+    function addToExpression(value) {
+      if (result.value === '0' && value !== '0') {
+        result.value = value;
+      } else if (!isNaN(value) || value === '.') {
+        result.value += value;
+      } else if (!isNaN(result.value[result.value.length - 1])) {
+        result.value += value;
       }
+    }
 
-      function appendOperator(operator) {
-        if (
-          result.value !== "" &&
-          !isNaN(result.value[result.value.length - 1])
-        ) {
-          result.value += operator;
-        }
-      }
-      function clearInput() {
-        result.value = "0";
-      }
-      function calculate() {
-        let expression = result.value;
-        if (expression) {
-          let numbers = expression.split(/[\+\-\*\/]/);
-          let operators = expression.replace(/[0-9]|\./g, "").split("");
-          let total = parseInt(numbers[0]);
+    function clearInput() {
+      result.value = '0';
+    }
 
-          for (let i = 1; i < numbers.length; i++) {
-            let num = parseInt(numbers[i]);
-            let operator = operators[i - 1];
+    function calculate() {
+      let expression = result.value;
+      if (expression) {
+        let numbers = expression.split(/[\+\-\*\/]/);
+        let operators = expression.replace(/[0-9]|\./g, "").split("");
+        let total = parseFloat(numbers[0]);
 
-            if (operator === "+") {
-              total += num;
-            } else if (operator === "-") {
-              total -= num;
-            } else if (operator === "*") {
-              total *= num;
-            } else if (operator === "/") {
-              total /= num;
-            }
+        for (let i = 1; i < numbers.length; i++) {
+          let num = parseFloat(numbers[i]);
+          let operator = operators[i - 1];
+
+          if (operator === '+') {
+            total += num;
+          } else if (operator === '-') {
+            total -= num;
+          } else if (operator === '*') {
+            total *= num;
+          } else if (operator === '/') {
+            total /= num;
           }
-
-          result.value = total.toString();
         }
+
+        result.value = total.toString();
       }
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>Calculator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-    <input id="result" />
-    <br />
-    <button onclick="displaynum(1)">1</button>
-    <button onclick="displaynum(2)">2</button>
-    <button onclick="displaynum(3)">3</button>
-    <button onclick="appendOperator('+')">+</button>
-    <br />
-    <button onclick="displaynum(4)">4</button>
-    <button onclick="displaynum(5)">5</button>
-    <button onclick="displaynum(6)">6</button>
-    <button onclick="appendOperator('-')">-</button>
-    <br />
-    <button onclick="displaynum(7)">7</button>
-    <button onclick="displaynum(8)">8</button>
-    <button onclick="displaynum(9)">9</button>
-    <button onclick="clearInput()">C</button>
-    <br />
-    <button onclick="displaynum(0)">0</button>
-    <button onclick="appendOperator('*')">*</button>
-    <button onclick="appendOperator('/')">/</button>
-    <button onclick="calculate()">=</button>
-
-    <script>
-      function displaynum(num) {
-        if (result.value !== "0") {
-          result.value += num;
-        } else {
-          result.value = num;
-        }
-      }
-
-      function appendOperator(operator) {
-        if (
-          result.value !== "" &&
-          !isNaN(result.value[result.value.length - 1])
-        ) {
-          result.value += operator;
-        }
-      }
-      function clearInput() {
-        result.value = "0";
-      }
-      function calculate() {
-        let expression = result.value;
-        if (expression) {
-          let numbers = expression.split(/[\+\-\*\/]/);
-          let operators = expression.replace(/[0-9]|\./g, "").split("");
-          let total = parseInt(numbers[0]);
-
-          for (let i = 1; i < numbers.length; i++) {
-            let num = parseInt(numbers[i]);
-            let operator = operators[i - 1];
-
-            if (operator === "+") {
-              total += num;
-            } else if (operator === "-") {
-              total -= num;
-            } else if (operator === "*") {
-              total *= num;
-            } else if (operator === "/") {
-              total /= num;
-            }
-          }
-
-          result.value = total.toString();
-        }
-      }
-    </script>
-  </body>
-</html>
-
