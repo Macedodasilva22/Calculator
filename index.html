@@ -30,16 +30,14 @@
   </div>
 
   <script>
-    // JavaScript logic remains the same
-  </script>
-</body>
-</html>
-
-
-  <script>
     const result = document.getElementById('result');
+    let isNewCalculation = false; // Track if a new calculation is started
 
     function addToExpression(value) {
+      if (isNewCalculation) { // If it's a new calculation, clear the result
+        result.value = '';
+        isNewCalculation = false;
+      }
       if (result.value === '0' && value !== '0') {
         result.value = value;
       } else if (!isNaN(value) || value === '.') {
@@ -51,6 +49,7 @@
 
     function clearInput() {
       result.value = '0';
+      isNewCalculation = false; // Reset isNewCalculation flag
     }
 
     function calculate() {
@@ -76,6 +75,7 @@
         }
 
         result.value = total.toString();
+        isNewCalculation = true; // Set isNewCalculation flag to true after calculation
       }
     }
   </script>
