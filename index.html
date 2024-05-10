@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,3 +78,84 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <input id="result" />
+    <br />
+    <button onclick="displaynum(1)">1</button>
+    <button onclick="displaynum(2)">2</button>
+    <button onclick="displaynum(3)">3</button>
+    <button onclick="appendOperator('+')">+</button>
+    <br />
+    <button onclick="displaynum(4)">4</button>
+    <button onclick="displaynum(5)">5</button>
+    <button onclick="displaynum(6)">6</button>
+    <button onclick="appendOperator('-')">-</button>
+    <br />
+    <button onclick="displaynum(7)">7</button>
+    <button onclick="displaynum(8)">8</button>
+    <button onclick="displaynum(9)">9</button>
+    <button onclick="clearInput()">C</button>
+    <br />
+    <button onclick="displaynum(0)">0</button>
+    <button onclick="appendOperator('*')">*</button>
+    <button onclick="appendOperator('/')">/</button>
+    <button onclick="calculate()">=</button>
+
+    <script>
+      function displaynum(num) {
+        if (result.value !== "0") {
+          result.value += num;
+        } else {
+          result.value = num;
+        }
+      }
+
+      function appendOperator(operator) {
+        if (
+          result.value !== "" &&
+          !isNaN(result.value[result.value.length - 1])
+        ) {
+          result.value += operator;
+        }
+      }
+      function clearInput() {
+        result.value = "0";
+      }
+      function calculate() {
+        let expression = result.value;
+        if (expression) {
+          let numbers = expression.split(/[\+\-\*\/]/);
+          let operators = expression.replace(/[0-9]|\./g, "").split("");
+          let total = parseInt(numbers[0]);
+
+          for (let i = 1; i < numbers.length; i++) {
+            let num = parseInt(numbers[i]);
+            let operator = operators[i - 1];
+
+            if (operator === "+") {
+              total += num;
+            } else if (operator === "-") {
+              total -= num;
+            } else if (operator === "*") {
+              total *= num;
+            } else if (operator === "/") {
+              total /= num;
+            }
+          }
+
+          result.value = total.toString();
+        }
+      }
+    </script>
+  </body>
+</html>
+>>>>>>> cf164b3d218e2d6a2853de1734c854415f19f40a
